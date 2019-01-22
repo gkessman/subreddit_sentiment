@@ -1,8 +1,8 @@
+#!/usr/local/bin/python3
+
 from __future__ import print_function
 from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, url_for, copy_current_request_context
-from random import random
-from time import sleep
+from flask import Flask, render_template
 from threading import Thread, Event
 import praw
 import json
@@ -49,14 +49,15 @@ class SubredditSentiment(Thread):
             print('')
             print('Subreddit: {}\n'.format(post.subreddit))
             print('Comment: {}\n----'.format(comment.body))
-            socketio.emit('newcomment', {'comment': comment.body}, namespace='/test')
 
-            # sentiment = self.comprehend.detect_sentiment(Text=comment.body, LanguageCode='en')['Sentiment']
+            sentiment = self.comprehend.detect_sentiment(Text=comment.body, LanguageCode='en')['Sentiment']
 
-            # print('Sentiment: {}'.format(sentiment))
-            # print('-'*10)
+            print('Sentiment: {}'.format(sentiment))
+            print('-'*10)
 
-            # self.sentiment[str(post.subreddit).lower()][str(sentiment)] += 1
+            self.sentiment[str(post.subreddit).lower()][str(sentiment)] += 1
+
+            socketio.emit('newcomment', {'subreddit': str(post.subreddit).lower(), 'sentiment': str(sentiment)}, namespace='/test')
 
 
 @app.route('/')
