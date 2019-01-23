@@ -13,7 +13,7 @@ __author__ = 'gkessman'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
-app.config['DEBUG'] = True
+app.config['DEBUG'] = False
 
 # Turn the flask app into a socketio app
 socketio = SocketIO(app)
@@ -46,19 +46,18 @@ class SubredditSentiment(Thread):
             if thread_stop_event.isSet():
                 break
             post = self.bot_master.submission(id=comment.submission)
-            print('')
-            print('Subreddit: {}'.format(post.subreddit))
-            print('Comment: {}'.format(comment.body))
+            # print('')
+            # print('Subreddit: {}'.format(post.subreddit))
+            # print('Comment: {}'.format(comment.body))
 
             sentiment = self.comprehend.detect_sentiment(Text=comment.body, LanguageCode='en')['Sentiment']
 
-            print('Sentiment: {}'.format(sentiment))
-            print('-'*10)
+            # print('Sentiment: {}'.format(sentiment))
+            # print('-'*10)
 
             self.sentiment[str(post.subreddit).lower()][str(sentiment)] += 1
 
             socketio.emit('newcomment', {'subreddit': str(post.subreddit).lower(), 'sentiment': str(sentiment)}, namespace='/test')
-
 
 @app.route('/')
 def index():
