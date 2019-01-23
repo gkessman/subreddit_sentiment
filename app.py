@@ -26,9 +26,10 @@ class SubredditSentiment(Thread):
     def __init__(self):
         super(SubredditSentiment, self).__init__()
 
-        self.sub_list = ['politics', 'funny', 'askreddit', 'todayilearned', 'science', 'worldnews',
-                        'pics', 'iama', 'gaming', 'videos', 'movies', 'aww', 'nfl', 'the_donald', 'gifs',
-                        'news', 'explainlikeimfive', 'relationships', 'showerthoughts', 'soccer']
+        self.sub_list = ['askreddit', 'politics', 'nba', 'soccer', 'fortnitebr', 'worldnews',
+                        'the_donald', 'funny', 'news', 'gaming', 'pics', 'squaredcircle',
+                        'hockey', 'leagueoflegends', 'todayilearned', 'movies', 'nfl',
+                        'showerthoughts', 'videos', 'gifs']
         self.sentiment_init = {'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0}
         self.sentiment = {}
         self.bot_master = praw.Reddit('bot1')
@@ -69,7 +70,6 @@ def test_connect():
     # Need visibility on the global thread object
     global thread
     print('Client connected')
-    print('IS THE THREAD ALIVE?', thread.isAlive())
     # Start the sentiment analysis stream
     if not thread.isAlive():
         print('Starting Thread')

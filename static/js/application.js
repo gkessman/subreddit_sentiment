@@ -2,7 +2,128 @@ $(document).ready(function () {
     //connect to the socket server.
     var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
     var comments_received = [];
-    var sentiment = { 'politics': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'funny': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'askreddit': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'todayilearned': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'science': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'worldnews': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'pics': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'iama': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'gaming': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'videos': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'movies': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'aww': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'nfl': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'the_donald': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'gifs': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'news': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'explainlikeimfive': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'relationships': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'showerthoughts': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 }, 'soccer': { 'POSITIVE': 0, 'NEUTRAL': 0, 'NEGATIVE': 0, 'MIXED': 0 } };
+    var sentiment = {
+        "askreddit": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "politics": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "nba": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "soccer": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "fortnitebr": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "worldnews": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "the_donald": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "funny": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "news": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "gaming": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "pics": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "squaredcircle": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "hockey": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "leagueoflegends": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "todayilearned": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "movies": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "nfl": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "showerthoughts": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "videos": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        },
+        "gifs": {
+            "POSITIVE": 0,
+            "NEUTRAL": 0,
+            "NEGATIVE": 0,
+            "MIXED": 0
+        }
+    };
 
     var x_axis = Object.keys(sentiment);
 
@@ -67,8 +188,8 @@ $(document).ready(function () {
 });
 
 function load_data(x_axis, sentiment) {
-    var full_data = [[],[],[],[]];
-    for(const key of x_axis) {
+    var full_data = [[], [], [], []];
+    for (const key of x_axis) {
         full_data[0].push(sentiment[key]['POSITIVE']);
         full_data[1].push(sentiment[key]['NEUTRAL']);
         full_data[2].push(sentiment[key]['NEGATIVE']);
