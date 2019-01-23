@@ -47,8 +47,8 @@ class SubredditSentiment(Thread):
                 break
             post = self.bot_master.submission(id=comment.submission)
             print('')
-            print('Subreddit: {}\n'.format(post.subreddit))
-            print('Comment: {}\n----'.format(comment.body))
+            print('Subreddit: {}'.format(post.subreddit))
+            print('Comment: {}'.format(comment.body))
 
             sentiment = self.comprehend.detect_sentiment(Text=comment.body, LanguageCode='en')['Sentiment']
 
