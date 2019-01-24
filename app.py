@@ -58,7 +58,7 @@ class SubredditSentiment(Thread):
 
             self.sentiment[str(post.subreddit).lower()][str(sentiment)] += 1
 
-            socketio.emit('newcomment', {'subreddit': str(post.subreddit).lower(), 'sentiment': str(sentiment)}, namespace='/test')
+            socketio.emit('newcomment', {'subreddit': str(post.subreddit).lower(), 'comment': str(comment.body), 'sentiment': str(sentiment)}, namespace='/test')
 
 @app.route('/')
 def index():
@@ -79,7 +79,7 @@ def test_connect():
 
 @socketio.on('disconnect', namespace='/test')
 def test_disconnect():
-    print('Client disconnected')
+    print('Client disconnected:')
     thread_stop_event.set()
 
 if __name__ == "__main__":

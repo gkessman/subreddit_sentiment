@@ -184,6 +184,16 @@ $(document).ready(function () {
         negative.y = full_data[2];
         mixed.y = full_data[3];
         Plotly.redraw('chartDiv');
+
+        if (comments_received.length >= 5){
+            comments_received.shift();
+        }
+        comments_received.push(msg.subreddit + ' - ' + msg.sentiment + ' - ' + msg.comment);
+        comments_string = '';
+        for (var i = 0; i < comments_received.length; i++){
+            comments_string = comments_string + '<p>' + comments_received[i].toString() + '</p>';
+        }
+        $('#log').html(comments_string);
     });
 });
 
