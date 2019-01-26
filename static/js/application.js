@@ -191,7 +191,7 @@ $(document).ready(function () {
         comments_received.push(msg.subreddit + ' - ' + msg.sentiment + ' - ' + msg.comment);
         comments_string = '';
         for (var i = 0; i < comments_received.length; i++){
-            comments_string = comments_string + '<p>' + comments_received[i].toString() + '</p>';
+            comments_string = comments_string + '<li class="list-group-item">' + comments_received[i].toString() + '</li>';
         }
         $('#log').html(comments_string);
     });
